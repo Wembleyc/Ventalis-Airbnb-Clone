@@ -1,0 +1,26 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    stripe_public_key: 'pk_test_51NEaSSBVYSLPSqVSpLRcVuDbyKi0i4X7pNuYhN6wleHj6SmO02BhZlFhkonlOISUDx5A0HiEyNA8mc6x0ZiZl5mS00KFV2V7PE'
+    stripe_secret_key: 'sk_test_51NEaSSBVYSLPSqVS6yuc8bE2HHXBLca1stxp87XdT3i8WNlBfTUjiTINlzIZMA9AhOPeLTnFZh1KR2kUxl8wKtQK00KJ5I7ODN'
+
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Kernel.php}'
+        
+      
+
+
+    Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface: '@security.password_hasher'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones

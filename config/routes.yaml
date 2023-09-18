@@ -1,0 +1,97 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+    methods: [GET, POST]
+
+app_verify_email:
+    path: /verify/email
+    controller: App\Controller\RegistrationController::verifyUserEmail
+    methods: [GET]
+    
+app_payment:
+  path: /payment
+  controller: App\Controller\StripeController::showPaymentForm
+
+# config/routes.yaml
+
+create_user:
+  path: /admin/create-user
+  controller: App\Controller\AdminController::createUser
+  methods: [GET, POST]
+
+
+app_create_initial_admin:
+  path: /create-initial-admin
+  controller: App\Controller\AdminController::createInitialAdmin
+  methods: [GET, POST]
+
+product_description_length:
+    path: /product/description-length
+    controller: App\Controller\ProductController::getDescriptionLength
+
+app_panier:
+    path: /panier
+    controller: App\Controller\PanierController::index
+    methods: GET
+
+app_panier_update_quantity:
+    path: /panier/update-quantity
+    controller: App\Controller\PanierController::updateQuantity
+    methods: POST
+
+app_back_office:
+    path: /back/office
+    controller: App\Controller\BackOfficeController::index
+    methods: GET
+
+
+app_back_office_create_user:
+    path: '/back/office/create_user'
+    controller: 'App\Controller\BackOfficeController::createUser'
+    methods: ['GET', 'POST']
+    
+app_back_office_user_delete:
+    path: /back-office/user/delete/{id}
+    controller: App\Controller\BackOfficeController::deleteUser
+    
+# Suppression de réservation (booking)
+app_back_office_booking_delete:
+    path: /back-office/booking/delete/{id}
+    controller: App\Controller\BackOfficeController::deleteBooking
+    methods: [GET]
+
+# Suppression de message (messages)
+app_back_office_message_delete:
+    path: /back-office/message/delete/{id}
+    controller: App\Controller\BackOfficeController::deleteMessage
+    methods: [GET]
+
+# Suppression d'avis (reviews)
+app_back_office_review_delete:
+    path: /back-office/review/delete/{id}
+    controller: App\Controller\BackOfficeController::deleteReview
+    methods: [GET]
+
+# Suppression de logement (logements)
+app_back_office_logement_delete:
+    path: /back-office/logement/delete/{id}
+    controller: App\Controller\BackOfficeController::deleteLogement
+    methods: [GET]
+
+app_message:
+    path: /message
+    controller: App\Controller\MessageController::index
+    methods: [GET, POST]
+
+admin_logements_image:
+    path: /admin/logements/image/{id}
+    controller: App\Controller\ImagesControlleurController::serveImage
+    methods: [GET]
+
+

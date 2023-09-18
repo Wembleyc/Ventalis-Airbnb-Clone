@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/path/to/your/css/styles.css">
+{% endblock %}
+
+{% block container %}
+    <div class="container-register py-5">
+        <h1 class="text-center mb-15" style="margin-top: 8%;">Inscrivez-vous !</h1>
+
+        {{ form_start(registrationForm, {'attr': {'class': 'form-signin', 'id': 'registerForm'}}) }}
+            <div class="form-label-group">
+                {{ form_label(registrationForm.firstName, 'First Name', {'label_attr': {'class': 'sr-only'}}) }}
+                {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control', 'placeholder': 'First Name'}}) }}
+                {{ form_errors(registrationForm.firstName) }}
+            </div>
+            
+            <div class="form-label-group">
+                {{ form_label(registrationForm.lastName, 'Last Name', {'label_attr': {'class': 'sr-only'}}) }}
+                {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+                {{ form_errors(registrationForm.lastName) }}
+            </div>
+
+            <div class="form-label-group">
+                {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'sr-only'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="form-label-group">
+                {{ form_label(registrationForm.telephone, 'Telephone', {'label_attr': {'class': 'sr-only'}}) }}
+                {{ form_widget(registrationForm.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Telephone'}}) }}
+                {{ form_errors(registrationForm.telephone) }}
+            </div>
+
+            <div class="form-label-group">
+                {{ form_label(registrationForm.password, 'Password', {'label_attr': {'class': 'sr-only'}}) }}
+                {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+                {{ form_errors(registrationForm.password) }}
+            </div>
+
+            <div class="form-check mb-3">
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                {{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {'label_attr': {'class': 'form-check-label'}}) }}
+                <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
+            </div>
+
+        {{ form_end(registrationForm) }}
+    </div>
+    
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Attendre que la page se charge
+        document.addEventListener('DOMContentLoaded', function () {
+            // Vérifier si un message flash de succès existe
+            var successMessage = '{{ app.session.flashBag.get("success")|first }}';
+            if (successMessage.length > 0) {
+                // Afficher la fenêtre contextuelle
+                alert(successMessage);
+            }
+        });
+    </script>
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('warning') %}
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+
+{% endblock %}
+
+
+

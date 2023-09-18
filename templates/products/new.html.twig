@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block container %}
+
+    <div class="container-symfony-div">
+        <h3>Formulaire de création produit</h3>
+        {{ form_start(form) }}
+        <div class="form-produit">
+            <div>
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+        <div class="form-produit">
+            <div>
+                {{ form_widget(form.description, {'attr': {'id': 'description1'}}) }}
+                <p id="counter1">
+                    {{ form.description.vars.value|length }} / 250
+                </p>
+            </div>
+        </div>
+        <div class="form-produit">
+            <div>
+                {{ form_widget(form.prix, {'attr': {'placeholder': '€'}}) }}
+            </div>
+        </div>
+
+        <button class="form-produit-btn" type='submit'>Créer</button>
+        {{ form_end(form) }}
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Erreur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="error-modal-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Succès</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="success-modal-message">Produit créé avec succès !</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    {% if error is not null %}
+        <script>
+            document.getElementById('error-modal-message').textContent = '{{ error }}';
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        </script>
+    {% endif %}
+
+    {% set successFlashMessages = app.flashes('success') %}
+    {% if successFlashMessages|length > 0 %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('success-modal-message').textContent = '{{ successFlashMessages[0] }}';
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                successModal._element.addEventListener('hidden.bs.modal', function () {
+                    window.location.href = '{{ path("app_product") }}';
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

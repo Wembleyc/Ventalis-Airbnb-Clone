@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat with MessageController{% endblock %}
+
+{% block styles %}
+<style>
+    .chat-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .chat-box {
+        background-color: #F5F5F5;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .user-message {
+        background-color: #DCF8C6;
+        align-self: flex-start;
+    }
+
+    .bot-message {
+        background-color: #E8E8E8;
+        align-self: flex-end;
+    }
+</style>
+{% endblock %}
+
+{% block container %}
+<div class="chat-wrapper">
+    <h1>Chat with MessageController! ✅</h1>
+
+    <div class="chat-box user-message">
+        <strong>User:</strong>
+        <p>Hello, how are you?</p>
+    </div>
+
+    <!-- Placeholder for bot messages -->
+    <div id="bot-messages"></div>
+
+    <!-- Form to submit user messages -->
+    <form id="chat-form" action="{{ path('app_message') }}" method="post">
+        <input type="text" id="user-message" placeholder="Type your message...">
+        <button type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function addMessage(sender, content) {
+        const chatBox = document.createElement('div');
+        chatBox.classList.add('chat-box');
+        chatBox.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+
+        const strong = document.createElement('strong');
+        strong.innerText = sender === 'user' ? 'You:' : 'Bot:';
+
+        const message = document.createElement('p');
+        message.innerText = content;
+
+        chatBox.appendChild(strong);
+        chatBox.appendChild(message);
+
+        document.querySelector('#bot-messages').appendChild(chatBox);
+    }
+
+    function handleUserMessage(message) {
+        fetch("/message", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            // Assuming the server responds with a "botResponse" field containing the bot's message
+            const botResponse = data.botResponse;
+            addMessage('bot', botResponse);
+        })
+        .catch((error) => {
+            console.error("Error sending message to the server:", error);
+        });
+    }
+    
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatForm = document.getElementById('chat-form');
+        chatForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const userMessageInput = document.getElementById('user-message');
+            const userMessage = userMessageInput.value.trim();
+            if (userMessage) {
+                addMessage('user', userMessage);
+                userMessageInput.value = '';
+                handleUserMessage(userMessage);
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,11 @@
+/* Sélectionnez l'élément <h1> */
+h1 {
+  color: blue;
+  font-size: 24px;
+}
+
+/* Sélectionnez l'élément <p> */
+p {
+  color: red;
+  font-size: 16px;
+}

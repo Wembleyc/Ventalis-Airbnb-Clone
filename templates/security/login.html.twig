@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion !{% endblock %}
+
+{% block container %}
+
+<div class="example-wrapper">
+    <h1>Se connecter ✅</h1>
+
+    {% if error %}
+        <p class="text-danger">{{ error.messageKey }}</p>
+    {% else %}
+        <p class="text-success">Connexion réussie !</p>
+    {% endif %}
+
+    <form action="{{path('app_login')}}" method='post'>
+        <input type="text" name="_username" value="{{lastUsername}}" placeholder="Entrez votre email">
+        <input type="password" name="_password" placeholder="Mot de passe">
+        <button type="submit" class="btn btn-primary">Connexion</button>
+    </form>
+</div>
+{% endblock %}
+

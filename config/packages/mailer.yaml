@@ -1,0 +1,4 @@
+# config/packages/mailer.yaml
+framework:
+    mailer:
+        dsn: 'smtp://smtp.gmail.com?encryption=tls&auth_mode=login&username=wembleydasilva@gmail.com&password=Azertyuiop123'

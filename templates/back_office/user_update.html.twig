@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block container %}
+    <h1>Mettre à jour l'utilisateur</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.firstName, {'label': 'Prénom', 'attr': {'class': 'form-control'}}) }}
+        {{ form_row(form.lastName, {'label': 'Nom', 'attr': {'class': 'form-control'}}) }}
+        {{ form_row(form.telephone, {'label': 'Téléphone', 'attr': {'class': 'form-control'}}) }}
+        {{ form_row(form.email, {'label': 'Email', 'attr': {'class': 'form-control'}}) }}
+        {{ form_row(form.roles, {'label': 'Rôles', 'attr': {'class': 'form-control'}}) }}
+        <button type="submit" class['btn btn-primary'] >Enregistrer les modifications</button>
+    {{ form_end(form) }}
+{% endblock %}

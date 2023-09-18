@@ -1,0 +1,10 @@
+5 testes diferents, des testes unitaires et des testes functionnels (ca s'affiche apres la commande)
+page d'accueil c'est une view c'est une scene car il ya un scenario 
+php bin/console make:test
+
+ Which test type would you like?:
+  [TestCase       ] basic PHPUnit tests
+  [KernelTestCase ] basic tests that have access to Symfony services
+  [WebTestCase    ] to run browser-like scenarios, but that don't execute JavaScript code
+  [ApiTestCase    ] to run API-oriented scenarios
+  [PantherTestCase] to run e2e scenarios, using a real-browser or HTTP client and a real web server

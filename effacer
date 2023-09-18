@@ -1,0 +1,3 @@
+Si l'utilisateur est enregistré sans avoir spécifié un matricule de conseiller, un conseiller est choisi aléatoirement parmi tous les employés ayant le rôle ROLE_EMPLOYEE.
+
+deja ca il ya pas de "si". l'user n'a aucun pouvoir, ile st envoyé a un conseiller aleatoirement 

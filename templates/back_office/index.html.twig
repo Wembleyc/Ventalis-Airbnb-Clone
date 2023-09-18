@@ -1,0 +1,319 @@
+{% extends 'base.html.twig' %}
+
+{% block container %}
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+      <div class="position-sticky">
+        <!-- Sidebar content goes here -->
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <div class="text-left">
+                <a href="{{ path('app_back_office_create_user') }}" class="btn btn-link mt-3 text-success font-weight-bold text-decoration-none">Créer un utilisateur</a>
+              </div>
+              <div class="text-left">
+                <a href="#" class="btn btn-link mt-3 text-success font-weight-bold text-decoration-none">Tableau de bord</a>
+              </div>
+              <div class="text-left">
+                <a href="#" class="btn btn-link mt-3 text-success font-weight-bold text-decoration-none">Gestion des utilisateurs</a>
+              </div>
+              <div class="text-left">
+                <a href="#" class="btn btn-link mt-3 text-success font-weight-bold text-decoration-none">Gestion des réservations</a>
+              </div>
+              <div class="text-left">
+                <a href="#" class="btn btn-link mt-3 text-success font-weight-bold text-decoration-none">Gestion des logements</a>
+              </div>
+              <div class="text-left">
+                <a href="#" class="btn btn-link mt-3 text-success font-weight-bold text-decoration-none">Boîte de réception</a>
+              </div>
+              <div class="text-left">
+                <a href="#" class="btn btn-link mt-3 text-success font-weight-bold text-decoration-none">Gestion des avis</a>
+              </div>                  
+          </li>
+          <!-- Add more sidebar links as needed -->
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h1 style="text-align: center;" class="mt-3">Back Office</h1>
+      <h2>Gestion users</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID user</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Tel</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.telephone }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              {% for role in user.roles %}
+              {{ roleLabels[role] }}{% if not loop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+            <td>
+              <a href="{{ path('app_back_office_user_update', {'id': user.id}) }}" class="btn btn-primary">Modifier</a>
+              <a href="{{ path('app_back_office_user_delete', {'id': user.id}) }}" class="btn btn-danger"
+                data-toggle="modal" data-target="#deleteUserModal{{ user.id }}">Supprimer</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Modal de confirmation de suppression pour les utilisateurs -->
+      {% for user in users %}
+      <div class="modal fade" id="deleteUserModal{{ user.id }}" tabindex="-1" role="dialog"
+        aria-labelledby="deleteUserModalLabel{{ user.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteUserModalLabel{{ user.id }}">Confirmation de suppression</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Êtes-vous sûr de vouloir supprimer cet utilisateur ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <a href="{{ path('app_back_office_user_delete', {'id': user.id}) }}" class="btn btn-danger">Supprimer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+  
+
+      <!-- Bookings -->
+      <h2>Bookings</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Guest Count</th>
+            <th>Total Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.startDate|date('Y-m-d') }}</td>
+            <td>{{ booking.endDate|date('Y-m-d') }}</td>
+            <td>{{ booking.guestCount }}</td>
+            <td>{{ booking.totalPrice }}</td>
+            <td>
+              <a href="#" class="btn btn-primary">Modifier</a>
+              <a href="{{ path('app_back_office_booking_delete', {'id': booking.id}) }}" class="btn btn-danger"
+                data-toggle="modal" data-target="#deleteBookingModal{{ booking.id }}">Supprimer</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Modal de confirmation de suppression pour les bookings -->
+      {% for booking in bookings %}
+      <div class="modal fade" id="deleteBookingModal{{ booking.id }}" tabindex="-1" role="dialog"
+        aria-labelledby="deleteBookingModalLabel{{ booking.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteBookingModalLabel{{ booking.id }}">Confirmation de suppression</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Êtes-vous sûr de vouloir supprimer cette réservation ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <a href="{{ path('app_back_office_booking_delete', {'id': booking.id}) }}" class="btn btn-danger">Supprimer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Logements -->
+      <h2>Logements</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Disponibilité</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for logement in logements %}
+          <tr>
+            <td>{{ logement.title }}</td>
+            <td>{{ logement.description }}</td>
+            <td>{{ logement.price }}</td>
+            <td>{{ logement.availability|date('Y-m-d') }}</td>
+            <td>
+              <a href="#" class="btn btn-primary">Modifier</a>
+              <a href="{{ path('app_back_office_logement_delete', {'id': logement.id}) }}" class="btn btn-danger"
+                data-toggle="modal" data-target="#deleteLogementModal{{ logement.id }}">Supprimer</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Modal de confirmation de suppression pour les logements -->
+      {% for logement in logements %}
+      <div class="modal fade" id="deleteLogementModal{{ logement.id }}" tabindex="-1" role="dialog"
+        aria-labelledby="deleteLogementModalLabel{{ logement.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteLogementModalLabel{{ logement.id }}">Confirmation de suppression</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Êtes-vous sûr de vouloir supprimer ce logement ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <a href="{{ path('app_back_office_logement_delete', {'id': logement.id}) }}" class="btn btn-danger">Supprimer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Messages -->
+      <h2>Messages</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id user</th>
+            <th>Contenu du message</th>
+            <th>Date et heure de l'envoi</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for message in messages %}
+          <tr>
+            <td>{{ message.id }}</td>
+            <td>{{ message.content }}</td>
+            <td>{{ message.timestamp|date('Y-m-d H:i:s') }}</td>
+            <td>
+              <a href="#" class="btn btn-primary">Modifier</a>
+              <a href="{{ path('app_back_office_message_delete', {'id': message.id}) }}" class="btn btn-danger"
+                data-toggle="modal" data-target="#deleteMessageModal{{ message.id }}">Supprimer</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Modal de confirmation de suppression pour les messages -->
+      {% for message in messages %}
+      <div class="modal fade" id="deleteMessageModal{{ message.id }}" tabindex="-1" role="dialog"
+        aria-labelledby="deleteMessageModalLabel{{ message.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteMessageModalLabel{{ message.id }}">Confirmation de suppression</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Êtes-vous sûr de vouloir supprimer ce message ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <a href="{{ path('app_back_office_message_delete', {'id': message.id}) }}" class="btn btn-danger">Supprimer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Reviews -->
+      <h2>Reviews</h2><br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id Avis</th>
+            <th>Contenu</th>
+            <th>Rating</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for review in reviews %}
+          <tr>
+            <td>{{ review.id }}</td>
+            <td>{{ review.content }}</td>
+            <td>{{ review.rating }}</td>
+            <td>
+              <a href="#" class="btn btn-primary">Modifier</a>
+              <a href="{{ path('app_back_office_review_delete', {'id': review.id}) }}" class="btn btn-danger"
+                data-toggle="modal" data-target="#deleteReviewModal{{ review.id }}">Supprimer</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Modal de confirmation de suppression pour les reviews -->
+      {% for review in reviews %}
+      <div class="modal fade" id="deleteReviewModal{{ review.id }}" tabindex="-1" role="dialog"
+        aria-labelledby="deleteReviewModalLabel{{ review.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteReviewModalLabel{{ review.id }}">Confirmation de suppression</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Êtes-vous sûr de vouloir supprimer cet avis ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <a href="{{ path('app_back_office_review_delete', {'id': review.id}) }}" class="btn btn-danger">Supprimer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    </main>
+  </div>
+</div>
+
+{% endblock %}

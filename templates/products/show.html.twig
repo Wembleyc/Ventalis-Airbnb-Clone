@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block container %}
+    <h1>{{ product.name }}</h1>
+    <h6>Prix: €{{ product.prix }}</h6>
+    <p>{{ product.description }}</p>
+    <a href="{{ path('app_product') }}" class="btn btn-sm btn-primary">Retour aux produits</a>
+{% endblock %}

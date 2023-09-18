@@ -1,0 +1,2174 @@
+{% extends 'base.html.twig'%} {% block container %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example Page</title>
+
+  <!-- Inclure la bibliothèque jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Inclure le fichier JavaScript personnalisé -->
+  {# <script src="{{ asset('animatio.js') }}"></script> #}
+</head>
+
+<body data-is-connected="{{ is_connected ? 'true' : 'false' }}">
+<!-- section HERO banner 1ere element-->
+<section class="hero-banner">
+    <div class="container-banner">
+      <div class="row-banner-1">
+        <h1>
+          Des séjours qui font du bien.<br />
+          <span id="dynamicText"></span>
+        </h1>
+        <p class="hero-subtitle text-center">
+         Découvrez des séjours écoresponsables qui allient exploration et respect de la nature. Vivez des aventures durables, pour préserver notre planète et créer des souvenirs inoubliables."
+        </p>
+      </div>
+      <div class="container-calendrier">
+        <div class="card mt-5 m-0">
+          <div class="card-body-calendrier">
+            <form>
+              <div class="row">
+                <div class="col">
+                  <label for="destination" class="form-label"
+                    >Destination</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="searchInput"
+                    placeholder="Où voulez-vous aller ?"
+                  />
+                </div>
+                <div class="col">
+                  <label for="arrival" class="form-label">Arrivée</label>
+                  <input
+                    type="date"
+                    class="form-control date-input"
+                    id="arrival"
+                  />
+                </div>
+                <div class="col">
+                  <label for="departure" class="form-label">Départ</label>
+                  <input
+                    type="date"
+                    class="form-control date-input"
+                    id="departure"
+                  />
+                </div>
+                <div class="col">
+                  <label for="voyageurs" class="form-label">Voyageurs</label>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="voyageurs"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Choisissez...
+                    </button>
+                    <ul
+                      class="dropdown-menu custom-drop-reservation"
+                      aria-labelledby="voyageurs"
+                    >
+                      <li>
+                        <div class="input-group mb-1">
+                          <span class="input-group-text">Adultes</span>
+                          <input
+                            placeholder="2"
+                            type="number"
+                            class="form-control"
+                            id="adults"
+                            min="0"
+                          />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="input-group mb-1">
+                          <span class="input-group-text"
+                            >Enfants (2-12 ans)</span
+                          >
+                          <input
+                            placeholder="0"
+                            type="number"
+                            class="form-control"
+                            id="children"
+                            min="0"
+                          />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="input-group mb-1">
+                          <span class="input-group-text"
+                            >Bébés (- de 2 ans)</span
+                          >
+                          <input
+                            placeholder="0"
+                            type="number"
+                            class="form-control"
+                            id="babies"
+                            min="0"
+                          />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="input-group mb-1">
+                          <span class="input-group-text"
+                            >Animaux de compagnie</span
+                          >
+                          <input
+                            placeholder="0"
+                            type="number"
+                            class="form-control"
+                            id="pets"
+                            min="0"
+                          />
+                        </div>
+                      </li>
+                      <li class="dropdown-footer">
+                        <button
+                          id="confirmButton"
+                          type="button"
+                          class="btn btn-success"
+                        >
+                          OK
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col d-flex align-items-end">
+                  <button type="submit" class="btn btn-success">
+                    Découvrir
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="calendar" class="mt-3"></div>
+    </div>
+</section>
+<!-- fin section HERO banner -->
+
+<div class="main-title-container">
+  <h2 class="main-title-section text-center mt-5">
+    Destination Populaires
+  </h2>
+  <p class="text-center main-para d-flex justify-content-center">
+      Des séjours triés sur le volet pour une expérience inoubliable.  
+    </p>
+</div>
+
+<!-- section cards-logements-populaires -->
+<section class="cards-logements-populaires">
+   
+    <div class="custom-carousel-2">
+      <button class="carousel-btn-2 carousel-btn-prev-2">&larr;</button>
+      <div class="carousel-track-2">
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn" href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators1" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn1" href="#carouselExampleIndicators1" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn1" href="#carouselExampleIndicators1" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators2" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn2" href="#carouselExampleIndicators2" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn2" href="#carouselExampleIndicators2" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators3" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators3" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators3" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn3" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn3" href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators4" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators4" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators4" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators4" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn4" href="#carouselExampleIndicators4" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn4" href="#carouselExampleIndicators4" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators5" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators5" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators5" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators5" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn5" href="#carouselExampleIndicators5" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn5" href="#carouselExampleIndicators5" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators6" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators6" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators6" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators6" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn6" href="#carouselExampleIndicators6" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn6" href="#carouselExampleIndicators6 role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators7" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators7" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators7" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators7" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn7" href="#carouselExampleIndicators7" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn7" href="#carouselExampleIndicators7" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators8" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators8" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators8" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators8" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn8" href="#carouselExampleIndicators8" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn8" href="#carouselExampleIndicators8" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators9" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators9" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators9" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn9" href="#carouselExampleIndicators9" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn9" href="#carouselExampleIndicators9" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+        </div>
+
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators10" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators10" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators10" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators10" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn10" href="#carouselExampleIndicators10" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn10" href="#carouselExampleIndicators10" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+        </div>
+        <div class="carousel-card-2">
+          <div class="favorite-icon">
+            <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+          </div>
+          <div id="carouselExampleIndicators11" class="carousel slide">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators11" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators11" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators11" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/Marseille.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/rio.jpg" class="d-block " alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/bali.jpg" class="d-block " alt="...">
+              </div>
+            </div>
+            <a class="carousel-control-prev" id="prevBtn11" href="#carouselExampleIndicators11" role="button" data-slide="prev" style="margin-top: 18%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" id="nextBtn11" href="#carouselExampleIndicators11" role="button" data-slide="next" style="margin-top: 18%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="info-cards">
+            <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+              <div class="info-cards-titre">
+                <h2>Rio de Janeiro</h2>
+                <h3>Logement Populaire</h3>
+              </div>
+              <div class="rating-logement">
+                <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+                <span>4,97</span>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+              officiis nostrum doloremque saepe maiores corrupti expedita
+              distinctio!
+            </p>
+            <h2>85 € <span>nuit</span></h2>
+          </div>
+          
+        </div>
+      <button class="carousel-btn-2 carousel-btn-next-2">&rarr;</button>
+    </div>
+</section>
+  <!-- fin section cards-logements-populaires -->
+
+<!-- section how-we-are -->
+<section class="how-we-are">
+    <div class="titre-how-we-are">
+
+      <h3>qui sommes-nous</h3>
+    </div>
+    <div class="main-container-how-we-are">
+
+      <div class="text-form-how-we-are">
+        <img src="./img/bolhabluecadet.png" alt="">
+        <h5>Lancé en 2018, <span style="font-weight: 700;">Ventalis</span> a débuté comme une idée audacieuse entre des amis partageant une passion pour l'écologie et les voyages. Conscients des effets néfastes du tourisme conventionnel sur l'environnement, nous avons pris l'initiative de créer une <span style="font-weight: 600;">alternative plus durable.</span> <br><br> Notre mission est claire mais ambitieuse : transformer l'industrie de l'hébergement touristique pour la rendre plus écologique.
+
+          À ce jour, notre engagement a porté ses fruits. <br><br> <span style="font-weight: 700;">Ventalis compte désormais plus de 3 000 hébergements écologiques </span>répartis à travers le monde. Chacun de ces havres incarne notre désir profond de faire voyager les voyageurs non seulement vers de nouvelles destinations, mais aussi vers un avenir plus vert.</h5>
+      </div>
+
+      <div class="three-points-how-we-are">
+        <div class="point-1-how-we-are" id="point1">
+          <div class="point-img-titre">
+            <img src="./img/Environmental-Planning.png" alt="">
+            <h2>Durabilité avant tout</h2>
+          </div>
+          <p>Chez Ventalis, chaque hébergement listé doit respecter nos critères stricts en matière d'écologie. Que ce soit par l'utilisation de matériaux durables dans la construction ou par une consommation d'énergie réduite, chaque propriété contribue à un monde plus vert.</p>
+        </div>
+        <div class="point-1-how-we-are" id="point2">
+          <div class="point-img-titre">
+            <img src="./img/Environment.png" alt="">
+            <h2>Économie circulaire</h2>
+          </div>
+          <p>Nous encourageons nos hôtes à adopter des pratiques d'économie circulaire, comme le recyclage et le compostage. Nous travaillons également avec des fournisseurs locaux pour offrir des produits éco-responsables dans chaque hébergement.</p>
+        </div>
+        <div class="point-1-how-we-are"id="point3">
+          <div class="point-img-titre">
+            <img src="./img/People.png" alt="">
+            <h2>Engagement</h2>
+          </div>
+          <p>Nous ne sommes pas seulement une plateforme de réservation, nous sommes une communauté. Nous offrons régulièrement des ateliers et des ressources éducatives à nos hôtes et aux voyageurs pour les aider à adopter un mode de vie plus durable.</p>
+        </div>
+      </div>
+
+     </div>
+     <div class="btn-how-we-are">
+      <a href="lien_vers_plus_d_informations" class="btn btn-light btn-sm btn-how-we-are">
+        En savoir plus
+      </a>
+    </div>
+    
+</section>
+<!-- fin section how-we-are -->
+
+<div class="title-cards-logements-populaires">
+  <h2 class="text-center mt-5">
+    Destination Insolites
+  </h2>
+  <p class="text-center main-para d-flex justify-content-center">
+      Des séjours triés sur le volet pour une expérience inoubliable.  
+    </p>
+</div>
+
+<!-- section cards-logements-insolites -->
+<section class="cards-logements-populaires">
+   
+  <div class="custom-carousel-2">
+    <button class="carousel-btn-2 carousel-btn-prev-2">&larr;</button>
+    <div class="carousel-track-2">
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn" href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators1" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn1" href="#carouselExampleIndicators1" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn1" href="#carouselExampleIndicators1" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators2" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn2" href="#carouselExampleIndicators2" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn2" href="#carouselExampleIndicators2" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators3" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators3" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators3" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn3" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn3" href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators4" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators4" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators4" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators4" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn4" href="#carouselExampleIndicators4" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn4" href="#carouselExampleIndicators4" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators5" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators5" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators5" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators5" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn5" href="#carouselExampleIndicators5" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn5" href="#carouselExampleIndicators5" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators6" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators6" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators6" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators6" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn6" href="#carouselExampleIndicators6" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn6" href="#carouselExampleIndicators6 role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators7" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators7" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators7" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators7" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn7" href="#carouselExampleIndicators7" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn7" href="#carouselExampleIndicators7" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators8" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators8" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators8" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators8" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn8" href="#carouselExampleIndicators8" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn8" href="#carouselExampleIndicators8" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators9" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators9" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators9" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn9" href="#carouselExampleIndicators9" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn9" href="#carouselExampleIndicators9" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+      </div>
+
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators10" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators10" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators10" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators10" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn10" href="#carouselExampleIndicators10" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn10" href="#carouselExampleIndicators10" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators11" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators11" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators11" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators11" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn11" href="#carouselExampleIndicators11" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn11" href="#carouselExampleIndicators11" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+    <button class="carousel-btn-2 carousel-btn-next-2">&rarr;</button>
+  </div>
+</section>
+<!-- fin section cards-logements-insolites -->
+
+<!-- section how it works  -->
+<section class="how-it-works-section">
+    <h2 class="titre-how-it-works">How it works</h2>
+    <div class="points-container">
+      <div class="point active">
+        <img src="./icons/booking.png" alt="Image 1" />
+        <h2>Réserver</h2>
+        <span class="point-marker"></span>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+          accusantium pariatur enim culpa cum sit.
+        </p>
+      </div>
+      <div class="point active">
+        <img src="./icons/credit-card.png" alt="Image 1" />
+        <h2>Payer safely</h2>
+        <span class="point-marker"></span>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+          accusantium pariatur enim culpa cum sit.
+        </p>
+      </div>
+      <div class="point active">
+        <img src="./icons/order.png" alt="Image 1" />
+        <h2>Confirmation</h2>
+        <span class="point-marker"></span>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+          accusantium pariatur enim culpa cum sit.
+        </p>
+      </div>
+      <div class="point active">
+        <img src="./icons/travel-bag.png" alt="Image 1" />
+        <h2>Checking</h2>
+        <span class="point-marker"></span>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+          accusantium pariatur enim culpa cum sit.
+        </p>
+      </div>
+    </div>
+    <div class="line"></div>
+    <div class="btn-how-container">
+      <a href="lien_vers_plus_d_informations" class="btn btn-how"
+        >En savoir plus</a
+      >
+    </div>
+</section>
+<!-- fin section how it works -->
+
+<div class="title-cards-logements-populaires">
+  <h2 class="text-center mt-5">
+    Destination Insolites
+  </h2>
+  <p class="text-center main-para d-flex justify-content-center">
+      Des séjours triés sur le volet pour une expérience inoubliable.  
+    </p>
+</div>
+
+<!-- section cards-logements-insolites -->
+<section class="cards-logements-populaires">
+   
+  <div class="custom-carousel-2">
+    <button class="carousel-btn-2 carousel-btn-prev-2">&larr;</button>
+    <div class="carousel-track-2">
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn" href="#carouselExampleIndicators" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn" href="#carouselExampleIndicators" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators1" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn1" href="#carouselExampleIndicators1" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn1" href="#carouselExampleIndicators1" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators2" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn2" href="#carouselExampleIndicators2" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn2" href="#carouselExampleIndicators2" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators3" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators3" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators3" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn3" href="#carouselExampleIndicators3" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn3" href="#carouselExampleIndicators3" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators4" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators4" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators4" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators4" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn4" href="#carouselExampleIndicators4" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn4" href="#carouselExampleIndicators4" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators5" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators5" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators5" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators5" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn5" href="#carouselExampleIndicators5" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn5" href="#carouselExampleIndicators5" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators6" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators6" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators6" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators6" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn6" href="#carouselExampleIndicators6" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn6" href="#carouselExampleIndicators6 role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators7" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators7" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators7" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators7" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn7" href="#carouselExampleIndicators7" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn7" href="#carouselExampleIndicators7" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators8" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators8" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators8" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators8" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn8" href="#carouselExampleIndicators8" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn8" href="#carouselExampleIndicators8" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators9" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators9" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators9" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn9" href="#carouselExampleIndicators9" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn9" href="#carouselExampleIndicators9" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+      </div>
+
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators10" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators10" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators10" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators10" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn10" href="#carouselExampleIndicators10" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn10" href="#carouselExampleIndicators10" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+      </div>
+      <div class="carousel-card-2">
+        <div class="favorite-icon">
+          <i class="heartIcon far fa-heart position-absolute top-0 end-0 m-2"></i>
+        </div>
+        <div id="carouselExampleIndicators11" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators11" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators11" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators11" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./img/Marseille.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/rio.jpg" class="d-block " alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./img/bali.jpg" class="d-block " alt="...">
+            </div>
+          </div>
+          <a class="carousel-control-prev" id="prevBtn11" href="#carouselExampleIndicators11" role="button" data-slide="prev" style="margin-top: 18%;">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" id="nextBtn11" href="#carouselExampleIndicators11" role="button" data-slide="next" style="margin-top: 18%;">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <div class="info-cards">
+          <div class="info-layout"> <!-- Nouvelle div pour le layout -->
+            <div class="info-cards-titre">
+              <h2>Rio de Janeiro</h2>
+              <h3>Logement Populaire</h3>
+            </div>
+            <div class="rating-logement">
+              <i class="fas fa-star" style="color: var(--main-colors-titre);"></i>
+              <span>4,97</span>
+            </div>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
+            officiis nostrum doloremque saepe maiores corrupti expedita
+            distinctio!
+          </p>
+          <h2>85 € <span>nuit</span></h2>
+        </div>
+        
+      </div>
+    <button class="carousel-btn-2 carousel-btn-next-2">&rarr;</button>
+  </div>
+</section>
+<!-- fin section cards-logements-insolites -->
+
+<!-- section testimonials-section  -->
+<section class="testimonials-section">
+    <div class="container-proof">
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="testimonial-name">John Doe</div>
+          <div class="testimonial-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            tincidunt neque in tellus ullamcorper, et gravida lectus laoreet.
+          </div>
+          <div class="testimonial-date">22 mai 2023</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-name">John Doe</div>
+          <div class="testimonial-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            tincidunt neque in tellus ullamcorper, et gravida lectus laoreet.
+          </div>
+          <div class="testimonial-date">22 mai 2023</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-name">John Doe</div>
+          <div class="testimonial-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            tincidunt neque in tellus ullamcorper, et gravida lectus laoreet.
+          </div>
+          <div class="testimonial-date">22 mai 2023</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-name">John Doe</div>
+          <div class="testimonial-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            tincidunt neque in tellus ullamcorper, et gravida lectus laoreet.
+          </div>
+          <div class="testimonial-date">22 mai 2023</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-name">John Doe</div>
+          <div class="testimonial-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            tincidunt neque in tellus ullamcorper, et gravida lectus laoreet.
+          </div>
+          <div class="testimonial-date">22 mai 2023</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-name">John Doe</div>
+          <div class="testimonial-content">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            tincidunt neque in tellus ullamcorper, et gravida lectus laoreet.
+          </div>
+          <div class="testimonial-date">22 mai 2023</div>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- fin section testimonials-section -->
+
+<div class="toast custom-toast" id="myToast" style="position: fixed; bottom: 20px; right: 0;" data-autohide="false">
+    <div class="toast-body d-flex justify-content-between align-items-center">
+      <span>Logement ajouté aux favoris.</span>
+      <button type="button" class="ml-2 mb-1 close custom-close" data-dismiss="toast">&times;</button>
+    </div>
+</div>
+
+</body>
+{% endblock %}
+

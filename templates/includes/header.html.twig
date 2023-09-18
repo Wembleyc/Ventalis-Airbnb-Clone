@@ -1,0 +1,305 @@
+{% block container %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-white fixed-top">
+  <a class="navbar-brand navbar-logo" href="{{ path('main') }}">
+    <img src="{{ asset('img/logo3.png') }}" alt="" />
+    <span class="logo-title text-success text-uppercase font-weight-bold"></span>
+  </a>
+  <!-- Button to display navigation menu on small screens -->
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+  <span class="navbar-toggler-icon text-success"></span>
+</button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <!-- Navigation menu content -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-success font-weight-bold" href="">Logements</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-success font-weight-bold" href="">À propos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-success font-weight-bold" href="">Découvrir</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-success font-weight-bold" href="">Contacter un agent</a>
+      </li>
+    </ul>
+    <div class="nav-right-items"> 
+      <!-- Search form -->
+      <form class="d-flex">
+        <div class="input-group d-flex align-items-center">
+          <!-- Simple search input with reduced width -->
+          <input class="recherche-nav form-control col col-4 p-2" type="search" placeholder="Maison au bord de mer avec piscine" aria-label="Rechercher" id="recherche-nav" style="max-width: 160px;" />
+          <button class="btn btn-success" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+       <!-- Rest of navbar content -->
+       <ul class="list-unstyled navbar-icons">
+        <li class="nav-item">
+          <a class="nav-link text-success font-weight-bold" id="cart-link" href="{{ path('app_panier') }}">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="badge bg-success" id="cart-count">0</span>
+          </a>
+        </li>
+        <!-- User icon dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user text-success" style="font-size: 24px; margin-right: 5px"></i>
+          </a>
+          <!-- Dropdown content -->
+          {% if app.user %}
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{{ path('app_message') }}">Messages</a></li>
+            <li><a class="dropdown-item" href="#">Compte</a></li>
+            <li><a class="dropdown-item" href="{{path('app_reservation')}}">Reservations</a></li>
+            <li><a class="dropdown-item" href="{{path('app_help')}}">Besoin d'aide?</a></li>
+            <li><a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a></li>
+          </ul>
+          {% else %}
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{{ path('app_register') }}">Inscription</a></li>
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#connectionModal" href="#">Connexion</a></li>
+          </ul>
+          {% endif %}
+        </li>
+      </ul>
+      <!-- If the user is connected and is an administrator, display the Back Office link -->
+      {% if app.user and (is_granted('ROLE_ADMIN') or is_granted('ROLE_HOTE') or is_granted('ROLE_EMPLOYE')) %}
+      <a href="{{ path('admin') }}" style="color: aliceblue" class="btn btn-success d-flex justify-content-center align-items-center">Back Office</a>
+      {% endif %}
+  
+    </div>
+  </div>
+ 
+</nav>
+
+
+
+
+<!-- Inscription Modal -->
+<div
+  class="modal fade"
+  id="inscriptionModal"
+  tabindex="-1"
+  aria-labelledby="inscriptionModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog mt-15">
+    <div class="modal-content mt-15">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inscriptionModalLabel">Inscription</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          id="registerForm"
+          action="{{ path('app_register') }}"
+          method="POST"
+        >
+          <div class="mb-3">
+            <label for="registerFirstName" class="form-label">Prénom *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="registerFirstName"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="registerLastName" class="form-label">Nom *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="registerLastName"
+              name="lastname"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="registerPhone" class="form-label"
+              >Numéro de téléphone *</label
+            >
+            <input
+              type="tel"
+              class="form-control"
+              id="registerPhone"
+              name="telephone"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="registerEmail" class="form-label">Email *</label>
+            <input
+              type="email"
+              class="form-control"
+              id="registerEmail"
+              name="email"
+              required
+            />
+            <p id="emailError" class="text-danger"></p>
+          </div>
+          <div class="mb-3">
+            <label for="registerPassword" class="form-label"
+              >Mot de passe *</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="registerPassword"
+              name="password"
+              required
+            />
+          </div>
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="registerRGPD"
+              name="registerRGPD"
+              required
+            />
+            <label class="form-check-label" for="registerRGPD">
+              J'accepte les conditions générales de vente *
+            </label>
+          </div>
+          <div id="inscriptionErrorMessage" class="error-container"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              id="inscriptionButtonId"
+            >
+              S'inscrire
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Connection Modal -->
+
+<div
+  class="modal fade"
+  id="connectionModal"
+  tabindex="-1"
+  aria-labelledby="connectionModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="connectionModalLabel">Connexion</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm" action="{{ path('app_login') }}" method="POST">
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label" id="loginEmailLabel"
+              >Email</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="loginEmail"
+              name="_username"
+            />
+          </div>
+          <div class="mb-3">
+            <label
+              for="loginPassword"
+              class="form-label"
+              id="loginPasswordLabel"
+              >Mot de passe</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="loginPassword"
+              name="_password"
+            />
+          </div>
+          <!-- Google Sign-In -->
+          <div
+            class="g-signin2"
+            data-width="104"
+            data-height="30"
+            data-onsuccess="onSignIn"
+          ></div>
+          <!-- Facebook Login -->
+          <div
+            class="fb-login-button"
+            data-width=""
+            data-size="large"
+            data-button-type="continue_with"
+            data-layout="default"
+            data-auto-logout-link="false"
+            data-use-continue-as="true"
+          ></div>
+          <!-- Apple Sign In -->
+          <div
+            id="appleid-signin"
+            data-color="black"
+            data-border="true"
+            data-type="sign in"
+          ></div>
+          <div id="connectionErrorMessage" class="error-container"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              id="connectionButtonId"
+            >
+              Se connecter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

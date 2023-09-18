@@ -1,0 +1,31 @@
+{# templates/admin/booking/_form.html.twig #}
+
+{% extends '@EasyAdmin/crud/form_theme.html.twig' %}
+
+{% block _status_booking_widget %}
+    {{ parent() }}
+
+    <script>
+        console.log("Le script est exécuté !");
+        alert('yo ca marche');
+
+        const statusBooking = document.querySelector('[name="Booking[status_booking]"]');
+        const commentsHoteField = document.querySelector('[name="Booking[comments_hote]"]').closest('.form-group');
+
+        function toggleCommentsField() {
+            console.log("Function toggleCommentsField called");
+            console.log("statusBooking value:", statusBooking.value);
+            if (statusBooking.value === "{{ constant('App\\Entity\\Booking::STATUS_DECLINED') }}") {
+                commentsHoteField.style.display = 'block';
+            } else {
+                commentsHoteField.style.display = 'none';
+            }
+        }
+        
+        // Initial toggle on page load
+        toggleCommentsField();
+
+        // Attach event listener
+        statusBooking.addEventListener('change', toggleCommentsField);
+    </script>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block container %}
+<script src="https://js.stripe.com/v3/"></script>
+  <form id="payment-form">
+
+    <div id="adress-element">
+      <!-- adresse -->
+    </div>
+    </br>
+    <div id="card-element">
+      <!-- CB -->
+    </div>
+    </br>
+    
+    <div id="card-errors" role="alert"></div>
+    <button id="submit-payment">Payer</button>
+  </form>
+
+  
+  <script>
+    var stripe = Stripe('pk_test_51NEaSSBVYSLPSqVSpLRcVuDbyKi0i4X7pNuYhN6wleHj6SmO02BhZlFhkonlOISUDx5A0HiEyNA8mc6x0ZiZl5mS00KFV2V7PE');
+    var elements = stripe.elements();
+
+    var cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+
+    var addressElement = elements.create('address', {
+      mode: 'shipping',
+    })
+    addressElement.mount('#adress-element');
+
+    var form = document.getElementById('payment-form');
+    var submitButton = document.getElementById('submit-payment');
+    var cardErrors = document.getElementById('card-errors');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      submitButton.disabled = true;
+
+      stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+        billing_details: {
+          address: {
+            line1: '123 Rue de la République',
+            city: 'Paris',
+            postal_code: '75001',
+            country: 'FR',
+          },
+        },
+      }).then(function(result) {
+        if (result.error) {
+          cardErrors.textContent = result.error.message;
+          submitButton.disabled = false;
+        } else {
+          var paymentToken = result.paymentMethod.id;
+          sendPaymentTokenToServer(paymentToken);
+        }
+      });
+    });
+
+    function sendPaymentTokenToServer(paymentToken) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', "{{ path('create_payment') }}", true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          alert(xhr.responseText);
+          submitButton.disabled = false;
+        } else {
+          alert('Erreur lors du paiement : ' + xhr.responseText);
+          submitButton.disabled = false;
+        }
+      };
+      xhr.onerror = function() {
+        alert('Une erreur réseau s\'est produite.');
+        submitButton.disabled = false;
+      };
+      xhr.send('payment_token=' + encodeURIComponent(paymentToken));
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create User{% endblock %}
+
+{% block container %}
+    <h1>Create a new user</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.telephone) }}
+    {{ form_row(form.plainPassword) }}
+
+    <div class="form-group">
+        {{ form_label(form.roles, 'Veuillez choisir un role :', {'label_attr': {'class': 'transparent-label'}}) }}
+        {{ form_widget(form.roles) }}
+    </div>
+
+    <button type="submit" class="btn btn-success mb-3">Create User</button>
+    {{ form_end(form) }}
+{% endblock %}

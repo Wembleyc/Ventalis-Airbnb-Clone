@@ -1,0 +1,1754 @@
+<style>
+  /* Importation des polices */
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700;1,900&family=Titan+One&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Open+Sans&display=swap");
+  
+  /* Définition des variables de couleur */
+  :root {
+    --nav-main: #c84646;
+    --secondaire: #c3ea03;
+    --warm-orange: #1e99bb;
+    --fresh-green: #00ff00;
+    --sky-blue: #87ceeb;
+    --soft-pink: #ffc0cb;
+    --primary: #2600ff;
+    --white-blue: #ecf0f4;
+    --hover-all: rgb(228, 115, 23);
+    --main-colors-titre: #167128;
+    --colordestaque:#5F9EA0;
+  }
+  
+  /* Styles généraux du body */
+  body {
+    font-family: "Open Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Styles des titres */
+  h1,
+  h2,
+  h5 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    color: var(--main-colors-titre);
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  h5 {
+    font-size: 18px;
+  }
+  
+  /* Styles des paragraphes */
+  p {
+    font-size: 16px;
+    color: var(--main-colors-titre);
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .tp-widget-rating {
+    margin-top: 10px;
+  }
+
+  .container-calendrier {
+    margin-top: 20px;
+  }
+
+  .date-input {
+    width: 100%;
+  }
+  
+ /* Section de la navbar */
+
+.navbar {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+
+}
+.nav-right-items{
+  display: flex;
+  width: 524px;
+  justify-content: space-evenly;
+}
+
+.container-fluid {
+  width: 100%;
+  height: 92px;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.dropdown-menu{
+  margin: 50% 0 0 -128%;
+}
+
+.navbar-logo {
+  width: 6%;
+  height: auto;
+
+  padding: 0%;
+}
+
+.navbar-logo img {
+  width: 80px;
+  height: auto;
+  margin-left: 38%;
+}
+
+.navbar-brand {
+  color: var(--main-colors-titre);
+  font-family: "Titan One", cursive;
+  margin: 0;
+
+}
+
+
+.navbar-brand:hover,
+.navbar-logo:hover .logo-title {
+  color: var(--warm-orange);
+}
+
+.navbar-collapse {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  align-items: center;
+  list-style: none;
+
+}
+.navbar-icons {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  width: 150px;
+  margin-top: 3%;
+  justify-content: space-around;
+}
+
+.navbar-nav .nav-link {
+  color: var(--main-colors-titre);
+  font-size: 15px;
+
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--warm-orange);
+}
+
+.navbar-collapse .btn {
+  color: var(--main-colors-titre);
+  border: solid var(--main-colors-titre);
+}
+
+.navbar-collapse .btn-hover:hover {
+  background-color: var(--main-colors-titre);
+  color: white;
+}
+
+.navbar-collapse .navbar-nav .nav-item {
+  width: 125px;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-toggler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+}
+
+.navbar-toggler-text {
+  margin-left: 0.5rem;
+}
+
+/* Section de la recherche */
+
+#recherche-css {
+  width: 250px;
+}
+
+#recherche-css::placeholder {
+  font-size: 15px;
+}
+
+/* Section des modales */
+
+.modal {}
+
+.modal-dialog {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content {}
+
+#connectionModal {}
+
+.container-register {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#registerForm {
+  width: 750px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 2%;
+}
+
+.form-check {
+  display: flex;
+  padding: -1% -10%;
+}
+
+#registration_form_agreeTerms {
+  margin-right: 4%;
+}
+
+.nav-icons{
+  display: flex;
+  align-items: center;
+  width: 380px;
+  justify-content: space-around;
+}
+
+/* fin Section de la navbar */
+
+  
+/* functionalités connection/inscription */
+#appleid-signin {
+  width: 104px;
+  /* Ajuster au besoin */
+  height: 30px;
+  /* Ajuster au besoin */
+  background-size: 100% 100%;
+}
+
+.input-invalid,
+.label-invalid {
+  color: red;
+}
+
+.shake {
+  animation: shake 0.5s;
+  animation-iteration-count: 1;
+}
+
+.error-container {
+  margin-top: 4%;
+  color: #ff0000;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+/* fin functionalités connection/inscription */
+
+/* section MAIN */
+.container-main .btn-main,
+.presentation-section .btn-main {
+  background-color: var(--nav-main);
+  color: white;
+}
+
+.container-main .btn-main:hover,
+.presentation-section .btn-main:hover {
+  background-color: var(--main-colors-titre);
+}
+
+/* Section principale */
+/* -------------------------------------------------- */
+.main-section {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: var(--white-blue);
+  padding: 5% 0;
+}
+
+/* Cartes */
+/* -------------------------------------------------- */
+.card-main {
+  margin: 30px;
+  margin: 1% -12%;
+  padding: 1% 1%;
+  width: 310px;
+  box-shadow: 0 1px 19px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  color: var(--main-colors-titre) !important;
+  padding: 4% 0%;
+}
+
+.card-text {
+  font-size: 15px;
+  max-height: 222px;
+}
+
+.container-main {
+  display: flex;
+  /*transition: transform 0.3s ease;*/
+  max-width: 88%;
+  justify-content: space-evenly;
+}
+
+.container-main .card-img-top:hover {
+  transform: scale(1.1);
+}
+
+.card-body {
+  padding: 10%;
+  padding-right: 15%;
+}
+
+.main-title-section {
+
+  font-family: "Montserrat", sans-serif;
+  color: var(--main-colors-titre);
+  font-size: 36px;
+}
+
+.main-para {
+  color: var(--main-colors-titre);
+}
+
+/* Carrousel cards */
+/* -------------------------------------------------- */
+.carousel-track-2 {
+  display: flex;
+  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 50%;
+
+  height: 503px;
+  align-items: center;
+  justify-content: center;
+  scroll-behavior: smooth;
+}
+
+.carousel-card-2 {
+  flex: 0 0 auto;
+  width: 18rem;
+    scroll-snap-align: center;
+  height: auto;
+  box-shadow: -1px -1px 9px 0px rgba(0, 0, 0, 0.2);
+  margin: 1%;
+  height: auto;
+  /*transition: transform 0.3s ease;*/
+  border-radius: 4%;
+  position: relative;  /* pour permettre le positionnement absolu de l'icône de cœur */
+
+}
+
+.carousel-card-2.card-hovered {
+  transform: scale(1.05);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+
+
+
+.title-overlay {
+  position: absolute;
+  top: 87%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-card-2 img {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 250px;
+}
+
+.carousel-card-2 p {
+  font-size: 14px;
+}
+
+.user-titre-data > .pic-user {
+  width: 51px;
+}
+
+.rating-proof-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.rating-proof-container img {
+  width: 38px;
+}
+
+.rating-proof-container h5 {
+  font-size: 16px;
+}
+
+.pic-user {
+  width: 51px;
+  height: 51px;
+  border-radius: 50%;
+}
+
+.user-titre-data {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-titre-data h4 span {
+  font-size: 12px;
+}
+
+.user-titre-data h4 {
+  font-size: 15px;
+  margin-right: 23%;
+}
+
+.custom-carousel-2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0% 0% 4% 1%;
+}
+
+.carousel-btn-2 {
+  flex: 0 0 auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(223, 223, 223, 0.837);
+  color: #000000;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-shadow: outset;
+  box-shadow: 0px 1px 20px 4px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn-2.visible {
+  opacity: 1;
+}
+
+.carousel-btn-prev-2 {
+  left: 10px;
+  margin-top: -37px;
+}
+
+.carousel-btn-next-2 {
+  right: 10px;
+  margin-top: -37px;
+}
+
+.info-layout {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-cards-titre {
+  flex-grow: 1;
+  text-align: left; 
+}
+
+.rating-logement {
+  flex: 1;
+  text-align: right;
+  margin-left: -8%;
+}
+.info-cards-titre h3{
+  font-size: 15px;
+  font-weight: 100;
+  font-family: "Montserrat", sans-serif;
+  color: var(--main-colors-titre);
+}
+
+.info-cards p{
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* nombre de lignes */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.info-cards{
+  height: 175px;
+  display: flex;
+  flex-direction: column;
+  padding: 11px;
+  justify-content: space-evenly;
+  margin-bottom: -4%;
+
+}
+.info-cards span{
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  font-size: 13px;
+}
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;  /* pour s'assurer que l'icône reste en haut */
+  font-size: 24px;  /* ajustez la taille comme vous le souhaitez */
+  color: red;  /* ou toute autre couleur de votre choix */
+}
+.far, .fas {
+  color: white; 
+  border: non !important;
+}
+
+.carousel-card-2:first-child {
+}
+
+.carousel-card-2:last-child {
+  margin-right: auto;
+}
+.custom-toast {
+  background-color: white;
+}
+
+.custom-close {
+  color: green;
+}
+
+.fade-out {
+  animation: fadeOut 8s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+
+/* CSS pour personnaliser les indicateurs du carrousel */
+.carousel-indicators li {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.carousel-indicators .active {
+  background-color: #ffffff;
+}
+
+
+
+/* FIN section carousel cards  */
+
+/* SECTION HOW WE ARE */
+
+.how-we-are {
+  position: relative;
+  height: 1100px;
+}
+
+.titre-how-we-are {
+     /* padding-top: 50px; */
+     position: relative;
+     top: -3%;
+     z-index: 1;
+     left: 5%;
+}
+
+
+.titre-how-we-are h3 {
+  color: white;
+  background-color: cadetblue;
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  top: 95px;
+  left: -3%;
+  font-size: 19px;
+  text-transform: uppercase;
+}
+
+.main-container-how-we-are {
+  position: relative;
+  top: -3%;
+  display: flex;
+  justify-content: center;
+  height: 59%;
+ background-color: var(--main-colors-titre);
+}
+
+.main-container-how-we-are h5 {
+  position: absolute;
+  top: 34%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  padding: 10px;
+  text-align: left;
+  max-width: 89%;
+  letter-spacing: 0px;
+  line-height: 1.5;
+  font-size: 16px;
+  /* font-family: "Montserrat"; */
+  /* flex-shrink: 0; */
+  /* font-style: normal; */
+  font-weight: 100;
+}
+
+.text-form-how-we-are {
+  flex: 1;
+  padding: 20px;
+  position: relative;
+  height: 950px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.text-form-how-we-are img {
+  margin-bottom: 20px;
+  transform: rotate(0deg);
+  position: absolute;
+  top: 9%;
+  left: -1%;
+  width: 76%;
+  height: 53%;
+}
+
+.three-points-how-we-are {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-direction: column;
+  position: relative;
+  left: -2%;
+  top: 6%;
+}
+
+.point-1-how-we-are {
+  text-align: left;
+  padding: 25px;
+  max-width: 410px;
+}
+.point-1-how-we-are p {
+  position: relative;
+  top: -14%;
+  left: -7%;
+  /* background-color: aqua; */
+  margin-right: -17%;
+  color: white;
+}
+
+.point-1-how-we-are img {
+  width: 56px;
+  margin-right: 39px;
+}
+
+.point-img-titre {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 6px;
+  position: relative;
+  top: -3%;
+  left: -34%;
+  padding: 3px;
+}
+
+.point-img-titre h2{
+  color: var(--main-colors-titre);
+  background-color: white;
+
+}
+#point1{
+  position: relative;
+  /* background-color: #0056b3; */
+  top: 8%;
+}
+#point2{
+  position: relative;
+  /* background-color: #0056b3; */
+  top:0%;
+}
+#point3{
+  position: relative;
+  /* background-color: #0056b3; */
+  top: -8%;
+}
+.btn-how-we-are{
+  position: relative ;
+  top:-10% ;
+  left: 15px;
+}
+/* FIN SECTION HOW WE ARE */
+
+
+/* SECTION CARDS LOGMENTS INSOLITES*/
+
+.title-cards-logements-populaires{
+  margin-top: -31%;
+
+
+}
+
+.title-cards-logements-populaires h2{
+  font-family: "Montserrat", sans-serif;
+  color: var(--main-colors-titre);
+  font-size: 36px;
+
+
+}
+
+/* SECTION HERO BANNER */
+.hero-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--nav-main);
+  font-family: "Montserrat", sans-serif;
+}
+.row-banner-1 p{
+  font-size: 17px;
+}
+.row-banner-1 h1{
+  font-size: 35px;
+}
+
+
+/* Bannière */
+/* -------------------------------------------------- */
+.hero-image {
+  width: 100%;
+  height: auto;
+}
+
+.container-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container-banner .row-banner-1 .btn {
+  color: white;
+  border: solid white;
+}
+
+.container-banner .row-banner-1 .btn:hover {
+  background-color: var(--main-colors-titre);
+  color: white;
+}
+
+
+/* Carrousel */
+/* -------------------------------------------------- */
+.carousel-item {
+  opacity: 0;
+  visibility: hidden;
+  /*transition: opacity 0.5s ease;*/
+}
+
+.carousel-item.active {
+  opacity: 1;
+  visibility: visible;
+  /*transform: scale(1);*/
+}
+
+.carousel.fade .carousel-inner,
+.carousel.fade .carousel-item {
+}
+
+.carousel.fade .carousel-item {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel.fade .carousel-item.active {
+  opacity: 1;
+}
+
+
+
+.carousel.fade .carousel-item-next.carousel-item-left,
+.carousel.fade .carousel-item-prev.carousel-item-right,
+.carousel.fade .carousel-item.active {
+  opacity: 0;
+}
+
+.carousel.fade .carousel-item-next,
+.carousel.fade .carousel-item-prev,
+.carousel.fade .carousel-item.active.right,
+.carousel.fade .carousel-item.active.left {
+  left: 0;
+  opacity: 1;
+  z-index: 1;
+}
+
+.carousel-item.slide-out {
+  transform: translateX(-100%);
+}
+
+.carousel-item.zoom-out {
+  transform: scale(1);
+  opacity: 1;
+  transition: none;
+}
+
+.carousel-item img {
+
+  transition: none;
+  max-width: 100%;
+  height:255px;
+  object-fit: cover;
+}
+
+
+
+.vector-carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300%;
+}
+
+.carousel-inner {
+  width: 100%;
+}
+
+
+
+.row-banner-1 {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+.row-banner-2 {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-basis: 50%;
+}
+
+.hero-banner .row h1 {
+  margin-top: 9%;
+}
+
+.hero-banner {
+  background-image: url("img/resort-g32b35cafa_1280.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 900px;
+  position: relative;
+}
+
+.hero-banner img {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Couleur et opacité du filtre */
+  z-index: 1;
+}
+
+.container-calendrier {
+  position: relative;
+  z-index: 3;
+}
+
+.container-banner .row-banner-1 h1,
+.container-banner .row-banner-1 p,
+.container-banner .row-banner-1 {
+  position: relative;
+  z-index: 2;
+  color: white; /* Couleur du texte */
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7%;
+}
+
+.row-banner-1 h1 {
+  margin-top: 1%;
+}
+
+/* Autres styles */
+/* -------------------------------------------------- */
+#dynamicText {
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  color: var(--main-colors-titre);
+}
+
+.textYellow {
+  color: yellow;
+}
+
+.textGreen {
+  color: green;
+}
+
+.card-container {
+  display: grid;
+  max-width: 1400px;
+  width: 90%;
+  margin: 30px auto;
+  grid-template-columns: repeat(auto-fill, minmax(333px, 1fr));
+  grid-gap: 30px;
+  justify-content: center;
+}
+
+.card-container img {
+  max-width: 300px;
+  height: auto;
+  padding: 1%;
+}
+
+.card-container p {
+  margin: 8% 1%;
+  min-height: 100px;
+  width: 295px;
+}
+
+.card-container h5 {
+  color: var(--nav-main);
+  margin: 8% 1%;
+  width: 295px;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+}
+
+.card-image:hover {
+  transform: scale(1.1);
+}
+/* FIN SECTION HERO BANNER */
+
+.custom-drop-reservation {
+  color: #0056b3;
+  width: 250px;
+}
+
+.custom-drop-reservation .dropdown-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+/* Conteneur du calendrier */
+.container-calendrier {
+  margin: 0% 8%;
+  margin-top: 0%;
+}
+
+.card-body-calendrier {
+  margin: 5% 2%;
+}
+
+
+
+/* FIN Section CALENDRIER FUNCTIONALITÉS */
+
+/* Section PRESENTATION */
+/* ================================================== */
+.presentation-section {
+  padding: 50px 0;
+  background-color: var(--secondaire);
+  margin: 0 -2%;
+}
+
+.presentation-section .container-presentation-titre {
+  margin: 5% 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.presentation-section .container-presentation-titre h2 {
+  margin: 4% 0;
+  margin-top: -6%;
+}
+
+.presentation-section .container-presentation-titre p {
+  margin: 0;
+  margin-bottom: 2%;
+}
+
+.presentation-section p {
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.presentation-section ul {
+  text-align: left;
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+
+.presentation-section ul li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
+
+.presentation-section img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.presentation-section .icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.presentation-section .icon-container img {
+  width: 50px;
+  height: 50px;
+  margin: 0 10px;
+}
+
+.presentation-section h3 {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 10px;
+}
+/* FIN Section PRESENTATION */
+
+/* Section PROOF TESTIMONIAL */
+/* ================================================== */
+.testimonials-section {
+  background-color: #f9f9f9;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 6% 0 5% 0;
+}
+
+.container-proof {
+  background-color: #f9f9f9;
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container-proof::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.container-testimon-titre {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 2% 7%;
+  margin-top: -2%;
+}
+
+.container-testimon-titre .btn {
+  background-color: var(--nav-main);
+  color: white;
+}
+
+.container-testimon-titre .btn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.container-testimon-titre h2 {
+  padding: 2% 1%;
+}
+
+.testimonials-container {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+.testimonial-card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px;
+  margin-right: 30px; /* Pour espacer les cartes */
+  flex-shrink: 0;
+  min-width: 300px;
+  text-align: center;
+  box-shadow: 0px 1px 19px 12px rgb(0 0 0 / 10%);
+}
+
+
+.testimonial-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.testimonial-content {
+  margin-bottom: 20px;
+}
+
+.testimonial-date {
+  font-size: 14px;
+  color: #888888;
+}
+/* END SECTION PROOF TESTIMONIAL */
+
+/* FOOTER SECTION */
+
+footer {
+  position: relative;
+  width: 100%;
+}
+
+.Rectangle-footer {
+  width: 100%;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid White;
+  margin: 20px 0;
+  width: 62%;
+  margin-top: -16%;
+  margin-left: 39%;
+}
+/* === Conteneur général === */
+.square {
+  width: 394px;
+  height: 313px;
+  background-color: #F4F4F4;
+  position: absolute;
+  top: 55px;
+  left: 38px;
+  opacity: 100%;
+  padding: 20px; /* Espacement interne */
+  box-sizing: border-box; /* Inclut le padding et la bordure dans les dimensions totales */
+}
+
+/* === Titre === */
+.square h3 {
+  margin-bottom: 10px; 
+  margin-bottom: 25px;
+  font-size: 23px;
+}
+
+/* === Éléments de formulaire et paragraphe === */
+.square label,
+.square input,
+.square p {
+  display: block;
+  margin: 5px 0; /* Espace vertical entre les éléments */
+}
+
+.square p{
+  display: block;
+  font-size: 15px;
+  margin: 27px 0;
+}
+/* === Input de type email === */
+.square input {
+  width: 100%;
+  padding: 8px;
+}
+
+/* === Conteneur pour l'input et le bouton === */
+.input-container {
+  display: flex; /* Layout horizontal */
+  align-items: center; /* Alignement vertical centré */
+}
+
+.input-container input {
+  flex-grow: 1; /* Prend toute la largeur disponible */
+  margin-right: -7px; /* Espace à droite de l'input */
+}
+
+/* === Bouton de soumission === */
+.submit-button {
+  background-color: #495b5e;
+  color: white;
+  padding: 9.6px 22px 10.4px 3%;
+  border: none;
+  cursor: pointer;
+  margin-right: 4px;
+  border-radius: 0 6px 6px 0;
+  padding-bottom: 1px;
+}
+
+
+/* === État de survol du bouton === */
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+
+/* END FOOTER SECTION */
+
+/* HOW IT WORKS SECTION */
+
+.how-it-works-section{
+  background-color: #f9f9f9;
+  margin-bottom: 32%;
+}
+.how-big {
+  background-color: var(--primary);
+}
+
+.titre-how-it-works {
+  padding-top: 4%;
+  padding-bottom: 2%;
+  display: flex;
+  justify-content: center;
+  font-size: 34px;
+
+}
+
+.btn-how {
+  background-color: var(--nav-main);
+  color: white;
+  margin: 5% 0;
+}
+
+.btn-how:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.points-container {
+  display: grid;
+  max-width: 1300px;
+  margin: 30px auto;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  justify-content: center;
+  justify-items: center;
+}
+
+.point {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  margin: 5%;
+  max-width: 300px;
+}
+
+.point:nth-child(4) {
+  width: 355px;
+}
+
+.point img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15%;
+}
+
+.point p {
+  text-align: center;
+}
+
+.point-marker {
+  background-color: #ff00ea;
+}
+
+.up-side {
+  background-color: #0adaff;
+}
+
+.btn-how-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-how-container a {
+  background-color: var(--nav-main);
+  color: white;
+  margin-top: 2%;
+}
+
+.btn-how-container a:hover {
+  background-color: var(--primary);
+  color: white;
+}
+/* END HOW IT WORKS SECTION */
+/* Style pour le formulaire app_product_new */
+.form-produit {
+  max-width: 400px;
+  margin: 0 auto; /* Centre horizontalement le formulaire */
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}
+
+/* Style pour les labels */
+.form-produit label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Style pour les champs de saisie */
+.form-produit input[type="text"],
+.form-produit textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style pour le bouton */
+.form-produit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-produit-btn:hover {
+  background-color: #45a049;
+}
+
+.container-symfony{
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+/* fin Style pour le formulaire app_product_new */
+/* Style pour la liste produits app_product */
+.product-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1000px;
+
+}
+.description-field:invalid {
+  color: red;
+}
+
+.liste-produit-container{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 7%;
+  margin-top: 5%;
+}
+.text-center{
+  margin-bottom: 2%;
+}
+
+.product-card {
+  overflow: hidden;
+  min-height: 250px;
+  height: 100%;
+  min-width: 290px;
+  flex: 0 0 30%;
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+.product-card p {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.smaller-width {
+  width: 150px; /* ajustez la largeur selon vos besoins */
+}
+
+.container-symfony-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Ajustez cette valeur selon vos besoins */
+}
+
+.container-symfony-div form {
+  width: 415px;
+}
+.container-symfony-div h3 {
+  margin-bottom: 5%;
+  text-transform: uppercase;
+}
+/* fin Style pour la liste produits app_product */
+
+
+/*Style code error404*/
+/*fin Style code error404*/
+
+/* style parrainage */
+
+.parrainage-section{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 1000px;
+  justify-content: center;
+}
+
+.titre-parrain{
+  width: 1000px;
+  display: flex;
+  margin-bottom: 3%;
+
+}
+
+.titre-parrain > h1 {
+  font-size: 31px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  
+
+ 
+}
+
+#parrain-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 1000px;
+
+}
+
+#parrain-info a {
+  display: inline-block;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: var(--main-colors-titre);
+}
+
+#how-it-works-parrain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1000px;
+
+
+}
+.how-it-works-titre{
+  width: 1000px;
+  margin-bottom: 1%;
+  margin-top: 3%;
+}
+
+
+
+.container-step-1{
+  text-align: center;
+ 
+
+}
+.container-step-2{
+  text-align: center;
+
+}
+
+.step-1{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.step-2{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+
+
+
+
+
+
+/* MEDIAS QUERIES */
+/* Media Queries pour les écrans de petite taille (max-width: 576px) */
+
+@media screen and (max-width: 576px) {
+
+  .navbar-logo img{
+    width: 55px;
+  }
+  .navbar-nav{
+    display: flex;
+    flex-direction: column;
+    margin-right: 7%;
+  }
+  #recherche-nav {
+    width: 200px;
+  }
+  .navbar-icons{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+    width: 103px;
+    justify-content: space-between;
+  }
+  .navbar-collapse{
+    width: 159px;
+    display: flex;
+  }
+  .navbar-collapse{
+  }
+  .navbar{
+  }
+  .nav-right-items{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 354px;
+    justify-content: flex-start;
+    height: 204px;
+    justify-content: space-between;
+  }
+  .dropdown-menu{
+    margin-left: -285%;
+  }
+  #registerForm {
+    width: 504px;
+  }
+  .hero-subtitle{
+    padding: 0 0 0 54%;
+    margin-right: 53%;
+    text-align: center;
+  }
+  .row-banner-1 p{
+    font-size: 15px;
+  }
+  .row-banner-1 h1{
+    font-size: 28px;
+  }
+ 
+  
+  
+}
+
+
+
+/* Media Queries pour les écrans de taille moyenne (min-width: 577px) and (max-width: 992.99px) */
+@media screen and (min-width: 577px) and (max-width: 992.99px) {
+  .navbar-logo img{
+    width: 55px;
+  }
+  .navbar-nav{
+    display: flex;
+    flex-direction: column;
+    margin-right: 39%;
+  }
+  #recherche-nav {
+    width: 200px;
+  }
+  .navbar-icons{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+    width: 103px;
+    justify-content: space-between;
+  }
+  .navbar-collapse{
+
+  }
+ 
+  .navbar{
+  }
+  .nav-right-items{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 354px;
+    justify-content: flex-start;
+    height: 204px;
+    justify-content: space-between;
+  }
+  .dropdown-menu{
+    margin-left: -285%;
+  }
+  #registerForm {
+    width: 504px;
+  }
+  .hero-subtitle{
+    padding: 0 0 0 54%;
+    margin-right: 53%;
+    text-align: center;
+  }
+  .row-banner-1 p{
+    font-size: 15px;
+  }
+  .row-banner-1 h1{
+    font-size: 28px;
+  }
+  
+}
+
+/* Media Queries pour les écrans plus grands (min-width: 993px) and (max-width: 1200px) */
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  .navbar-nav {
+    display: flex;
+    margin-right: -4%;
+  }
+  .navbar-nav .nav-item {
+    display: flex;
+    justify-content: center;
+  }
+  .navbar-collapse {
+  }
+
+  .navbar-nav .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    margin: 0 15%;
+  }
+  .navbar-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar-logo img {
+  }
+  .navbar-logo span {
+  }
+  .navbar-expand-lg .navbar-nav .nav-link {
+  }
+  .navbar {
+  }
+  .container {
+  }
+  .navbar-expand-lg .navbar-nav .nav-link {
+    width: 124px;
+}
+
+
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1350px) {
+
+
+}
+
+@media (max-width: 1200px) {
+}
+
+/* MEDIAS QUERIES */
+
+  
+/* Ajustements de l'avatar dans EasyAdmin */
+.eae-sidebar .eae-avatar img {
+  width: 40px; /* Largeur souhaitée */
+  height: 40px; /* Hauteur souhaitée */
+  border-radius: 50%; /* Pour rendre l'avatar rond */
+  object-fit: cover; /* Pour s'assurer que l'image couvre la taille définie sans étirement */
+}
+
+</style>
